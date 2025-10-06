@@ -1,0 +1,34 @@
+name: Deploy Theme (Dev & Prod)
+
+on:
+  push:
+    branches:
+      - main
+      - dev---InfinityFree
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Deploy to DEV (InfinityFree)
+        if: github.ref == 'refs/heads/dev---InfinityFree'
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.3
+        with:
+          server: ftpupload.net
+          username: ${{ secrets.FTP_USERNAME_DEV }}
+          password: ${{ secrets.FTP_PASSWORD_DEV }}
+          protocol: ftp
+          server-dir: /htdocs/wp-content/themes/clinica-theme-dev/
+
+      - name: Deploy to PROD
+        if: github.ref == 'refs/heads/main'
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.3
+        with:
+          server: ftpupload.net
+          username: ${{ secrets.FTP_USERNAME_PROD }}
+          password: ${{ secrets.FTP_PASSWORD_PROD }}
+          protocol: ftp
+          server-dir: /htdocs/wp-content/themes/clinica-theme/
