@@ -11,6 +11,11 @@ require_once get_template_directory() . "/inc/plugins/servicos-repeater.php";
 require_once get_template_directory() . "/inc/plugins/equipa-repeater.php";
 
 // ----------------------------------------------------
+// 🧩 Custom posts
+// ----------------------------------------------------
+require_once get_template_directory() . "/inc/custom-posts/casos-clinicos.php";
+
+// ----------------------------------------------------
 // 🧩 Enqueue CSS e fontes
 // ----------------------------------------------------
 add_action("wp_enqueue_scripts", function () {
@@ -32,13 +37,15 @@ add_action("wp_enqueue_scripts", function () {
 });
 
 // ----------------------------------------------------
-// 🧩 Registar menus
+// 🧩 Registar menus, thumbnails
 // ----------------------------------------------------
 add_action("after_setup_theme", function () {
   register_nav_menus([
     "main-menu" => __("Main Menu", "clinica-theme"),
     "secondary-menu" => __("Menu secundário", "clinica-theme"),
   ]);
+
+  add_theme_support("post-thumbnails");
 });
 
 // ----------------------------------------------------
