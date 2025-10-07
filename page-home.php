@@ -25,11 +25,11 @@ get_header(); ?>
   </section>
 
   <!-- Test section -->
-  <section class="bg-egg-dark">
+  <section class="bg-ink text-egg-dark">
      <div class="container flex items-center gap-10 py-16">
       <div class="w-1/2">
         <h1 class="leading-none mb-8">Lorem Ipsum</h1>
-        <p class="text-lg text-ink/70 max-w-md">
+        <p class="text-lg max-w-md">
           The 2025 ADHA Standards of Clinical Dental Hygiene Practice expand the role of the hygienist by emphasizing systemic health, risk assessment, and individualized care. This course highlights the key differences from the 2016 standards and shows how these updates transform everyday chairside conversations. Participants will learn how to align their practice with the new standards and confidently guide discussions that connect oral health to overall longevity and wellness.
         </p>
       </div>
@@ -47,7 +47,7 @@ get_header(); ?>
   </section>
 
   <!-- Test section -->
-  <section class="">
+  <section class="bg-egg-dark">
      <div class="container flex items-center gap-10 py-16">
       <div class="w-1/2">
         <img
@@ -60,7 +60,7 @@ get_header(); ?>
       </div>
       <div class="w-1/2">
         <h1 class="leading-none mb-8">Escove os seus dentes</h1>
-        <p class="text-lg text-ink/70 max-w-md">
+        <p class="text-lg max-w-md">
           The 2025 ADHA Standards of Clinical Dental Hygiene Practice expand the role of the hygienist by emphasizing systemic health, risk assessment, and individualized care. This course highlights the key differences from the 2016 standards and shows how these updates transform everyday chairside conversations. Participants will learn how to align their practice with the new standards and confidently guide discussions that connect oral health to overall longevity and wellness.
         </p>
       </div>

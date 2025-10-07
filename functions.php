@@ -65,3 +65,70 @@ add_action("do_meta_boxes", function () {
     remove_meta_box("postcustom", "page", "normal");
   }
 });
+
+// ----------------------------------------------------
+// Add Gallery Meta Box
+// ----------------------------------------------------
+add_action("add_meta_boxes", function () {
+  add_meta_box(
+    "caso_galeria",
+    "Galeria de Imagens",
+    "caso_galeria_callback",
+    "caso_clinico",
+    "normal",
+    "high",
+  );
+});
+
+function caso_galeria_callback($post)
+{
+  $images = get_post_meta($post->ID, "_caso_galeria", true) ?: [];
+  wp_nonce_field("caso_galeria_nonce", "caso_galeria_nonce_field");
+  ?>
+  <div id="caso-galeria-wrapper">
+    <button type="button" class="button select-images">Selecionar Imagens</button>
+    <ul class="gallery-preview" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;">
+      <?php foreach ($images as $id): ?>
+        <li>
+          <img src="<?php echo esc_url(
+            wp_get_attachment_thumb_url($id),
+          ); ?>" style="width:80px;height:80px;object-fit:cover;border-radius:4px;">
+        </li>
+      <?php endforeach; ?>
+    </ul>
+    <input type="hidden" name="caso_galeria_ids" value="<?php echo esc_attr(
+      implode(",", $images),
+    ); ?>">
+  </div>
+  <script>
+    jQuery(function($){
+      const frame = wp.media({multiple:true});
+      $('.select-images').on('click',function(e){
+        e.preventDefault();
+        frame.open();
+        frame.on('select',()=>{
+          const ids = frame.state().get('selection').map(img=>img.id).join(',');
+          $('input[name="caso_galeria_ids"]').val(ids);
+        });
+      });
+    });
+  </script>
+  <?php
+}
+
+// Save selected images
+add_action("save_post_caso_clinico", function ($post_id) {
+  if (
+    !isset($_POST["caso_galeria_nonce_field"]) ||
+    !wp_verify_nonce($_POST["caso_galeria_nonce_field"], "caso_galeria_nonce")
+  ) {
+    return;
+  }
+  $ids = array_filter(array_map("intval", explode(",", $_POST["caso_galeria_ids"] ?? "")));
+  update_post_meta($post_id, "_caso_galeria", $ids);
+});
+
+// Ensure WordPress media scripts are loaded
+add_action("admin_enqueue_scripts", function () {
+  wp_enqueue_media();
+});

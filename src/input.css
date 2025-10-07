@@ -31,4 +31,8 @@
   .mainmenu li a {
     @apply font-semibold;
   }
+
+  .secondarymenu li a {
+    @apply text-sm;
+  }
 }
