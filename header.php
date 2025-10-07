@@ -6,10 +6,11 @@
   <?php wp_head(); ?>
 </head>
 <body <?php body_class("min-h-screen flex flex-col font-poppins bg-egg text-ink"); ?>>
-  <header class="py-6">
-    <div class="container mx-auto flex items-center justify-between">
-      <a href="<?php echo esc_url(home_url("/")); ?>" class="text-4xl font-bold">
-        NOITES VIEGAS
+  <header class="py-4 sticky top-0 bg-egg z-50">
+    <div class="container mx-auto flex items-end justify-between">
+      <a href="<?php echo esc_url(home_url("/")); ?>" class="flex flex-col">
+        <span class="text-[12px] font-normal uppercase">Cliníca Dentária</span>
+        <span class="text-3xl font-bold -mt-2">NOITES VIEGAS</span>
       </a>
 
       <nav>

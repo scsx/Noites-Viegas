@@ -1,4 +1,7 @@
 <?php
+// Custom plugins.
+require_once get_template_directory() . "/inc/plugins/servicos-repeater.php";
+
 // Enqueue Tailwind CSS build (dist/style.css) so it loads on every page
 add_action("wp_enqueue_scripts", function () {
   wp_enqueue_style("clinica-style", get_template_directory_uri() . "/dist/style.css", [], null);
@@ -22,4 +25,19 @@ add_action("wp_enqueue_scripts", function () {
 
   // Tailwind build
   wp_enqueue_style("clinica-style", get_template_directory_uri() . "/dist/style.css", [], null);
+});
+
+// Hide native custom fields meta box on all pages except the listed pages.
+add_action("do_meta_boxes", function () {
+  global $post;
+
+  if (!$post) {
+    return;
+  }
+
+  $template = get_page_template_slug($post->ID);
+
+  if ($template !== "page-contact.php") {
+    remove_meta_box("postcustom", "page", "normal");
+  }
 });
