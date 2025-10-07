@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: Contacts Page
+ * Template Name: Contacts
  */
 
 get_header();
@@ -10,7 +10,7 @@ $line2 = get_post_meta(get_the_ID(), "Address Line 2", true);
 $telefone = get_post_meta(get_the_ID(), "Telefone 1", true);
 ?>
 
-<main class="container mx-auto py-16">
+<main class="pagewrapper">
   <h1><?php the_title(); ?></h1>
 
   <div class="space-y-2 text-lg">

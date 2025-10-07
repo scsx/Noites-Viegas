@@ -1,19 +1,18 @@
 <?php
-// Custom plugins.
+/**
+ * Tema Clínica Dentária
+ * Funções principais
+ */
+
+// ----------------------------------------------------
+// 🧩 Custom plugins (repeater fields)
+// ----------------------------------------------------
 require_once get_template_directory() . "/inc/plugins/servicos-repeater.php";
+require_once get_template_directory() . "/inc/plugins/equipa-repeater.php";
 
-// Enqueue Tailwind CSS build (dist/style.css) so it loads on every page
-add_action("wp_enqueue_scripts", function () {
-  wp_enqueue_style("clinica-style", get_template_directory_uri() . "/dist/style.css", [], null);
-});
-
-// Register navigation menus
-add_action("after_setup_theme", function () {
-  register_nav_menus([
-    "main-menu" => __("Main Menu", "clinica-theme"),
-  ]);
-});
-
+// ----------------------------------------------------
+// 🧩 Enqueue CSS e fontes
+// ----------------------------------------------------
 add_action("wp_enqueue_scripts", function () {
   // Google Fonts
   wp_enqueue_style(
@@ -23,20 +22,38 @@ add_action("wp_enqueue_scripts", function () {
     null,
   );
 
-  // Tailwind build
-  wp_enqueue_style("clinica-style", get_template_directory_uri() . "/dist/style.css", [], null);
+  // Tailwind build (dist/style.css)
+  wp_enqueue_style(
+    "clinica-style",
+    get_template_directory_uri() . "/dist/style.css",
+    ["clinica-fonts"],
+    null,
+  );
 });
 
-// Hide native custom fields meta box on all pages except the listed pages.
+// ----------------------------------------------------
+// 🧩 Registar menus
+// ----------------------------------------------------
+add_action("after_setup_theme", function () {
+  register_nav_menus([
+    "main-menu" => __("Main Menu", "clinica-theme"),
+    "secondary-menu" => __("Menu secundário", "clinica-theme"),
+  ]);
+});
+
+// ----------------------------------------------------
+// 🧩 Esconder “Campos Personalizados” nativos
+// (excepto em templates específicos, ex. page-contact.php)
+// ----------------------------------------------------
 add_action("do_meta_boxes", function () {
   global $post;
-
   if (!$post) {
     return;
   }
 
   $template = get_page_template_slug($post->ID);
 
+  // Só mantém os campos nativos no template Contactos
   if ($template !== "page-contact.php") {
     remove_meta_box("postcustom", "page", "normal");
   }

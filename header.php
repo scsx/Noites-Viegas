@@ -24,4 +24,4 @@
     </div>
   
 </header>
-<main class="flex-grow container mx-auto py-16">
+<main class="flex-grow <?php echo is_front_page() ? "" : "container mx-auto py-16"; ?>">

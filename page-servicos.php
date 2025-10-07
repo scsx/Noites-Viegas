@@ -4,7 +4,7 @@
  */
 get_header(); ?>
 
-<main class="container mx-auto py-8 space-y-10">
+<main class="pagewrapper">
   <h1><?php the_title(); ?></h1>
 
   <?php
@@ -17,7 +17,9 @@ get_header(); ?>
         <div class="rounded-lg bg-white p-6 flex flex-col justify-between h-full">
           <div class="relative pb-8 h-full">
             <?php if (!empty($s["titulo"])): ?>
-              <h2 class="text-3xl font-semibold mb-[16px]"><?php echo esc_html($s["titulo"]); ?></h2>
+              <h2 class="text-3xl font-semibold mb-[16px]"><?php echo esc_html(
+                $s["titulo"],
+              ); ?></h2>
             <?php endif; ?>
             <?php if (!empty($s["texto"])): ?>
               <p class="text-sm leading-relaxed"><?php echo esc_html($s["texto"]); ?></p>

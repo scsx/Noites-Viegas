@@ -7,6 +7,10 @@
     @apply text-[70px] font-bold;
   }
 
+  h2 {
+    @apply text-3xl font-bold;
+  }
+
   h3 {
     @apply text-2xl font-semibold;
   }
@@ -17,7 +21,14 @@
 }
 
 @layer components {
+  .pagewrapper {
+    @apply container mx-auto pt-4 pb-8;
+  }
+  .pagewrapper > h1 {
+    @apply mb-8;
+  }
+
   .mainmenu li a {
-    @apply font-bold;
+    @apply font-semibold;
   }
 }
