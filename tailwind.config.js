@@ -28,7 +28,11 @@ module.exports = {
           DEFAULT: "#3B82F6",
           dark: "#2563EB",
         },
-        ink: "#111111",
+        ink: {
+          light: "#262525",
+          DEFAULT: "#111111",
+          dark: "#000000",
+        },
       },
       typography: ({ theme }) => ({
         DEFAULT: {

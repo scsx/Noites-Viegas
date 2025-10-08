@@ -12,7 +12,7 @@ get_header(); ?>
   if ($equipa): ?>
     <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
       <?php foreach ($equipa as $m): ?>
-        <div class="relative pb-16 flex flex-col items-center rounded-xl border-[16px] border-egg-light p-6 bg-white">
+        <div class="relative pb-16 flex flex-col items-center thickborder thickborder--egg-light p-6 bg-white">
           <?php if (!empty($m["foto"])): ?>
             <img src="<?php echo esc_url(
               $m["foto"],

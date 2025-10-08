@@ -88,8 +88,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && $mostrar_form) {
       </div>
     </div>
 
-    <div class="aspect-video overflow-hidden mt-16">
-      <div class="rounded-xl border-[16px] border-egg-light bg-egg-light h-full">
+    <div class="aspect-video mt-16">
+      <div class="rounded-xl thickborder thickborder--egg-light bg-egg-light h-full">
         <iframe
           src="https://maps.google.com/maps?q=38.733220,-9.143780&z=15&output=embed"
           width="100%"

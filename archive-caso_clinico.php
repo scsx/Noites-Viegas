@@ -7,7 +7,7 @@
     <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
       <?php while (have_posts()):
         the_post(); ?>
-        <a href="<?php the_permalink(); ?>" class="block rounded-xl border-[16px] border-egg-light bg-white hover:shadow-md transition">
+        <a href="<?php the_permalink(); ?>" class="block thickborder thickborder--egg-light bg-white">
           <?php if (has_post_thumbnail()): ?>
             <div class="bg-egg-light">
               <img src="<?php the_post_thumbnail_url(

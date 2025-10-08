@@ -13,7 +13,7 @@ get_header(); ?>
   if ($servicos): ?>
   <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
     <?php foreach ($servicos as $s): ?>
-      <div class="rounded-xl border-[16px] border-egg-light bg-egg-light">
+      <div class="thickborder thickborder--egg-light bg-egg-light">
         <div class="rounded-lg bg-white p-6 flex flex-col justify-between h-full">
           <div class="relative pb-8 h-full">
             <?php if (!empty($s["titulo"])): ?>
@@ -30,7 +30,7 @@ get_header(); ?>
       </div>
     <?php endforeach; ?>
 
-    <div class="rounded-xl border-[16px] border-egg-light bg-egg-light">
+    <div class="thickborder thickborder--egg-light bg-egg-light">
         <div class="rounded-lg bg-white p-6 flex flex-col justify-between h-full">
           <div class="relative pb-8 h-full">
             <?php if (!empty($s["titulo"])): ?>

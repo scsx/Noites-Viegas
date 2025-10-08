@@ -4,72 +4,113 @@
  */
 get_header(); ?>
 
-<div>
 
-  <!-- Hero -->
-  <section class="container flex items-center gap-10 py-16">
-    <div class="w-1/2">
-      <img
-        src="<?php echo esc_url(get_template_directory_uri()); ?>/images/TEMP_IMAGES/room.jpg"
-        alt="Clínica Dentária"
-        class="w-full p-4 bg-white rounded-xl border-[16px] border-egg-light"
-      />
-    </div>
+<?php function clinica_button($text, $url)
+{
+  return '
+  <a href="' .
+    esc_url($url) .
+    '" class="relative group overflow-hidden border-2 border-blueLink text-blueLink px-8 py-1.5 inline-flex items-center rounded">
+    <span class="absolute left-0 top-0 h-full w-0 bg-blueLink transition-all duration-300 group-hover:w-full"></span>
+    <span class="relative z-10 flex items-center">
+      <span class="text-lg transition-colors duration-300 group-hover:text-white">' .
+    esc_html($text) .
+    '</span>
+      <span class="inline-block ml-2 mt-[1px] transition-colors duration-300 group-hover:text-white">></span>
+    </span>
+  </a>';
+} ?>
 
-    <div class="w-1/2">
-      <h1 class="leading-none mb-8">
-        <span class="block uppercase text-[27px] font-normal text-blueLink">CLÍNICA DENTÁRIA</span>
-        <span class="block uppercase">Noites Viegas</span>
+
+<!-- Hero -->
+<section class="flex items-center gap-10 py-24 bg-cover bg-top -mt-[80px]"
+  style="background-image: url('<?php echo esc_url(
+    get_template_directory_uri(),
+  ); ?>/images/TEMP_IMAGES/portrait.jpg');">
+  <div class="container flex items-center gap-10">
+    <div class="ml-auto w-[45%]">
+      <h1 class="leading-none mb-8 mt-24">
+        <span class="block uppercase text-[27px] font-normal">CLÍNICA DENTÁRIA</span>
+        <span class="block uppercase text-blueLink whitespace-nowrap">Noites Viegas</span>
       </h1>
       <p class="text-lg max-w-md">
-        <?php bloginfo("description"); ?>
+          Localizada no coração de Lisboa, junto ao Saldanha, a Clínica Dentária Noites Viegas oferece um atendimento personalizado e de excelência em todas as áreas da medicina dentária.
+        </p>
+        <p class="mt-12 text-sm">
+          <?php echo clinica_button("Conhecer a Equipa", site_url("/equipa")); ?>
+        </p>
+    </div>
+  </div>
+</section>
+
+<!-- Test section -->
+<section class="bg-ink text-egg-dark">
+  <div class="container flex items-center gap-10 py-24">
+    <div class="w-1/2">
+      <h2 class="text-[70px] leading-none mb-8">Laboratório</h2>
+      <p class="text-lg text-white max-w-md">
+        Ter o nosso laboratório dentro da clínica permite criar próteses e coroas de forma mais rápida, precisa e personalizada. A comunicação direta entre dentista e técnico garante resultados estéticos e funcionais superiores — tudo num só lugar, sem esperas nem intermediários.
       </p>
     </div>
-  </section>
+    
+    <div class="w-1/2">
+      <img
+        src="<?php echo esc_url(
+          get_template_directory_uri(),
+        ); ?>/images/TEMP_IMAGES/ozkan-guner-8DxcFmzlJ1Q-unsplash.jpg"
+        alt="Clínica Dentária"
+        class="w-full h-auto thickborder thickborder--ink-light"
+      />
+    </div>
+  </div>
+</section>
 
-  <!-- Test section -->
-  <section class="bg-ink text-egg-dark">
-     <div class="container flex items-center gap-10 py-16">
-      <div class="w-1/2">
-        <h1 class="leading-none mb-8">Casos Clínicos de sucesso</h1>
-        <p class="text-lg max-w-md">
-          The 2025 ADHA Standards of Clinical Dental Hygiene Practice expand the role of the hygienist by emphasizing systemic health, risk assessment, and individualized care. This course highlights the key differences from the 2016 standards and shows how these updates transform everyday chairside conversations. Participants will learn how to align their practice with the new standards and confidently guide discussions that connect oral health to overall longevity and wellness.
-        </p>
-      </div>
-      
-      <div class="w-1/2">
-        <img
-          src="<?php echo esc_url(
-            get_template_directory_uri(),
-          ); ?>/images/TEMP_IMAGES/dentistry.jpg"
-          alt="Clínica Dentária"
-          class="w-full aspect-video bg-white rounded-xl border-[16px] border-egg-light"
-        />
-      </div>
-     </div>
-  </section>
+<!-- Test section -->
+<section>
+  <div class="container flex items-center gap-10 pt-16 pb-28">
+    <div class="w-1/2">
+      <img
+        src="<?php echo esc_url(
+          get_template_directory_uri(),
+        ); ?>/images/TEMP_IMAGES/lesly-juarez-1AhGNGKuhR0-unsplash.jpg"
+        alt="Clínica Dentária"
+        class="w-full bg-white thickborder thickborder--egg-light"
+      />
+    </div>
+    <div class="w-1/2">
+      <h2 class="text-[70px] leading-none mb-8">Casos Clínicos de sucesso</h2>
+      <p class="text-lg max-w-md">
+        Conheça alguns dos nossos casos clínicos de sucesso — transformações reais que refletem o cuidado, a experiência e a dedicação da nossa equipa. Cada sorriso recuperado é o resultado de um plano personalizado e de um compromisso com a excelência em estética e saúde oral.
+      </p>
+      <p class="mt-4 text-sm">
+        <?php echo clinica_button("Ver casos", site_url("/casos-clinicos")); ?>
+      </p>
+    </div>
+  </div>
+</section>
 
-  <!-- Test section -->
-  <section class="bg-egg-dark">
-     <div class="container flex items-center gap-10 pt-16 pb-28">
-      <div class="w-1/2">
-        <img
-          src="<?php echo esc_url(
-            get_template_directory_uri(),
-          ); ?>/images/TEMP_IMAGES/the-humble-co-cADflhZzgyo-unsplash.jpg"
-          alt="Clínica Dentária"
-          class="w-full bg-white rounded-xl border-[16px] border-egg-light"
-        />
-      </div>
-      <div class="w-1/2">
-        <h1 class="leading-none mb-8">Escove os seus dentes</h1>
-        <p class="text-lg max-w-md">
-          The 2025 ADHA Standards of Clinical Dental Hygiene Practice expand the role of the hygienist by emphasizing systemic health, risk assessment, and individualized care. This course highlights the key differences from the 2016 standards and shows how these updates transform everyday chairside conversations. Participants will learn how to align their practice with the new standards and confidently guide discussions that connect oral health to overall longevity and wellness.
-        </p>
-      </div>
-     </div>
-  </section>
-
-</div>
+<!-- Test section -->
+<section class="bg-egg-dark">
+  <div class="container flex items-center gap-10 pt-16 pb-28">
+    <div class="w-1/2">
+      <h2 class="text-[70px] leading-none mb-8">Tratamentos</h2>
+      <p class="text-lg max-w-md">
+        Oferecemos uma ampla gama de tratamentos dentários, desde limpezas e branqueamentos até ortodontia, implantes, próteses e facetas estéticas. Cada serviço é realizado com tecnologia moderna e atenção ao detalhe, garantindo conforto, segurança e resultados duradouros em cada sorriso.
+      </p>
+      <p class="mt-4 text-sm">
+        <?php echo clinica_button("Ver tratamentos", site_url("/tratamentos")); ?>
+      </p>
+    </div>
+    <div class="w-1/2">
+      <img
+        src="<?php echo esc_url(
+          get_template_directory_uri(),
+        ); ?>/images/TEMP_IMAGES/the-humble-co-cADflhZzgyo-unsplash.jpg"
+        alt="Clínica Dentária"
+        class="w-full bg-white thickborder thickborder--egg-light"
+      />
+    </div>
+  </div>
+</section>
 
 <?php get_footer(); ?>

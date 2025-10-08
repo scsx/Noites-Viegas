@@ -3,7 +3,7 @@
   <footer class="mt-auto bg-egg-dark py-8">
     <div class="container mx-auto flex items-center justify-between">
       
-      <p class="text-left text-sm">
+      <p class="text-left text-sm text-ink/70">
         © <?php echo date("Y"); ?> Clínica Dentária Noites Viegas. Todos os direitos reservados.
       </p>
       

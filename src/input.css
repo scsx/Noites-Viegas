@@ -35,7 +35,7 @@
 
   /* Borders */
   .thickborder {
-    @apply rounded-xl border-[16px];
+    @apply rounded-xl border-[16px] shadow-md transition;
   }
 
   .thickborder--egg-light {
@@ -48,6 +48,10 @@
 
   .thickborder--egg-dark {
     @apply thickborder border-egg-dark;
+  }
+
+  .thickborder--ink-light {
+    @apply thickborder border-ink-light;
   }
 
   /* Menus */
