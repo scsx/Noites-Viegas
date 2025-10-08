@@ -29,6 +29,20 @@ get_header(); ?>
         </div>
       </div>
     <?php endforeach; ?>
+
+    <div class="rounded-xl border-[16px] border-egg-light bg-egg-light">
+        <div class="rounded-lg bg-white p-6 flex flex-col justify-between h-full">
+          <div class="relative pb-8 h-full">
+            <?php if (!empty($s["titulo"])): ?>
+              <h2 class="text-3xl font-semibold mb-[16px] text-blueLink">Agende o seu tratamento</h2>
+            <?php endif; ?>
+            <?php if (!empty($s["texto"])): ?>
+              <p class="leading-relaxed">Veja nos contactos o nosso horário e agende uma visita.</p>
+            <?php endif; ?>
+            <div class="absolute bottom-0 w-1/3 h-[5px] bg-blueLink"></div>
+          </div>
+        </div>
+      </div>
   </div>
 <?php else: ?>
   <p class="text-ink/50">Nenhum serviço definido ainda.</p>

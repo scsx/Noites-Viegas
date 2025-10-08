@@ -49,24 +49,6 @@ add_action("after_setup_theme", function () {
 });
 
 // ----------------------------------------------------
-// 🧩 Esconder “Campos Personalizados” nativos
-// (excepto em templates específicos, ex. page-contact.php)
-// ----------------------------------------------------
-add_action("do_meta_boxes", function () {
-  global $post;
-  if (!$post) {
-    return;
-  }
-
-  $template = get_page_template_slug($post->ID);
-
-  // Só mantém os campos nativos no template Contactos
-  if ($template !== "page-contact.php") {
-    remove_meta_box("postcustom", "page", "normal");
-  }
-});
-
-// ----------------------------------------------------
 // Add Gallery Meta Box
 // ----------------------------------------------------
 add_action("add_meta_boxes", function () {
@@ -174,4 +156,84 @@ add_action("save_post_caso_clinico", function ($post_id) {
 // Ensure WordPress media scripts are loaded
 add_action("admin_enqueue_scripts", function () {
   wp_enqueue_media();
+});
+
+// ----------------------------------------------------
+// 🧩 Metabox: Controlo do formulário de marcação
+// ----------------------------------------------------
+add_action("add_meta_boxes", function () {
+  add_meta_box(
+    "clinica_formulario_marcacao",
+    "Formulário de marcação",
+    "clinica_formulario_marcacao_callback",
+    "page",
+    "side",
+    "default",
+  );
+});
+
+function clinica_formulario_marcacao_callback($post)
+{
+  // Mostrar só para administradores
+  if (!current_user_can("administrator")) {
+    echo "<p>Sem permissões para editar.</p>";
+    return;
+  }
+
+  // Verifica se é o template correcto
+  $template = get_page_template_slug($post->ID);
+  if ($template !== "page-contact.php") {
+    echo "<p>Este controlo só é usado na página de Contactos.</p>";
+    return;
+  }
+
+  $mostrar = get_post_meta($post->ID, "mostrar_form", true);
+  $email = get_post_meta($post->ID, "email_form", true);
+  $mensagem = get_post_meta($post->ID, "mensagem_form", true);
+  wp_nonce_field("clinica_formulario_marcacao_nonce", "clinica_formulario_marcacao_nonce_field");
+  ?>
+  <p>
+    <label>
+      <input type="checkbox" name="mostrar_form" value="1" <?php checked($mostrar, "1"); ?>>
+      Mostrar formulário de marcação
+    </label>
+  </p>
+  <p>
+    <label for="email_form">Email do formulário de marcação</label><br>
+    <input type="email" name="email_form" id="email_form" value="<?php echo esc_attr(
+      $email,
+    ); ?>" style="width:100%;">
+  </p>
+  <p>
+    <label for="mensagem_form">Aviso no form (opcional)</label><br>
+    <input type="text" name="mensagem_form" id="mensagem_form" value="<?php echo esc_attr(
+      $mensagem,
+    ); ?>" style="width:100%;">
+  </p>
+  <?php
+}
+
+// Guardar valores
+add_action("save_post_page", function ($post_id) {
+  if (
+    !isset($_POST["clinica_formulario_marcacao_nonce_field"]) ||
+    !wp_verify_nonce(
+      $_POST["clinica_formulario_marcacao_nonce_field"],
+      "clinica_formulario_marcacao_nonce",
+    )
+  ) {
+    return;
+  }
+
+  if (!current_user_can("administrator")) {
+    return;
+  }
+
+  $mostrar = isset($_POST["mostrar_form"]) ? "1" : "";
+  $email = sanitize_email($_POST["email_form"]);
+  $mensagem = sanitize_text_field($_POST["mensagem_form"]);
+
+  update_post_meta($post_id, "mostrar_form", $mostrar);
+  update_post_meta($post_id, "email_form", $email);
+  update_post_meta($post_id, "mensagem_form", $mensagem);
 });
