@@ -87,32 +87,75 @@ function caso_galeria_callback($post)
   ?>
   <div id="caso-galeria-wrapper">
     <button type="button" class="button select-images">Selecionar Imagens</button>
+
     <ul class="gallery-preview" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;">
       <?php foreach ($images as $id): ?>
-        <li>
+        <li data-id="<?php echo esc_attr($id); ?>" style="position:relative;">
           <img src="<?php echo esc_url(
             wp_get_attachment_thumb_url($id),
-          ); ?>" style="width:80px;height:80px;object-fit:cover;border-radius:4px;">
+          ); ?>" style="width:120px;height:120px;object-fit:cover;border-radius:4px;">
+          <button type="button" class="remove-image" style="position:absolute;top:-6px;right:-6px;background:#dc2626;color:#fff;border:none;border-radius:50%;width:18px;height:18px;cursor:pointer;">
+            <span style="position:absolute;top:-1px;left:6px;color:#fff;">x</span>
+          </button>
         </li>
       <?php endforeach; ?>
     </ul>
+
     <input type="hidden" name="caso_galeria_ids" value="<?php echo esc_attr(
       implode(",", $images),
     ); ?>">
   </div>
+
   <script>
     jQuery(function($){
-      const frame = wp.media({multiple:true});
-      $('.select-images').on('click',function(e){
-        e.preventDefault();
-        frame.open();
-        frame.on('select',()=>{
-          const ids = frame.state().get('selection').map(img=>img.id).join(',');
-          $('input[name="caso_galeria_ids"]').val(ids);
+      const $input = $('input[name="caso_galeria_ids"]');
+      const $preview = $('.gallery-preview');
+
+      function renderPreview(ids) {
+        $preview.empty();
+        ids.forEach(id => {
+          wp.media.attachment(id).fetch().then(att => {
+            const thumb = att.attributes.sizes.thumbnail?.url || att.attributes.icon;
+            const item = $(`
+              <li data-id="${id}" style="position:relative;">
+                <img src="${thumb}" style="width:80px;height:80px;object-fit:cover;border-radius:4px;">
+                <button type="button" class="remove-image" style="position:absolute;top:-6px;right:-6px;background:#dc2626;color:#fff;border:none;border-radius:50%;width:18px;height:18px;cursor:pointer;">×</button>
+              </li>
+            `);
+            $preview.append(item);
+          });
         });
+      }
+
+      function openMediaFrame() {
+        const frame = wp.media({ multiple:true });
+
+        frame.on('select', function() {
+          const ids = frame.state().get('selection').map(img => img.id);
+          const existing = $input.val() ? $input.val().split(',').map(Number) : [];
+          const all = [...new Set([...existing, ...ids])];
+          $input.val(all.join(','));
+          renderPreview(all);
+        });
+
+        frame.open();
+      }
+
+      $('.select-images').on('click', e => {
+        e.preventDefault();
+        openMediaFrame();
+      });
+
+      $preview.on('click', '.remove-image', function(){
+        const id = $(this).parent().data('id').toString();
+        const ids = $input.val().split(',').filter(i => i && i !== id);
+        $input.val(ids.join(','));
+        $(this).parent().remove();
       });
     });
-  </script>
+    </script>
+
+
   <?php
 }
 
