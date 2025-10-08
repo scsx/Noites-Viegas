@@ -13,19 +13,17 @@
             $clean_title = preg_replace('/\xC2\xA0/', " ", $raw_title);
             echo esc_html(trim($clean_title));
             ?>
+            <div class="w-1/3 h-[10px] bg-egg-dark mt-8"></div>
           </h1>
-
-          <!-- <?php if (has_post_thumbnail()): ?>
-            <img src="<?php the_post_thumbnail_url(
-              "large",
-            ); ?>" alt="<?php the_title(); ?>" class="w-1/3 rounded-lg">
-          <?php endif; ?> -->
         </div>
 
-        <div class="flex gap-x-8 mt-12">
-          <div class="prose w-2/3">
-            <?php the_content(); ?>
+        <div class="flex gap-x-8 pt-8">
+          <div class="w-2/3">
+            <div class="prose prose-a:no-underline hover:prose-a:underline max-w-none">
+              <?php the_content(); ?>
+            </div>
           </div>
+
           <div class="w-1/3">
             <?php
             $meta_value = get_post_meta(get_the_ID(), "_caso_galeria", true);
@@ -39,9 +37,11 @@
             if (!empty($galeria)):
 
               $count = count($galeria);
-              $cols = $count >= 3 ? 3 : $count;
+              $colsClass =
+                $count >= 3 ? "grid-cols-3" : ($count === 2 ? "grid-cols-2" : "grid-cols-1");
               ?>
-              <div class="grid gap-4 <?php echo "grid-cols-" . $cols; ?>">
+
+              <div class="pt-2 grid gap-4 <?php echo $colsClass; ?>">
                 <?php foreach ($galeria as $id):
                   $full = wp_get_attachment_image_url($id, "large");
                   $thumb = wp_get_attachment_image($id, "medium", false, [
@@ -54,19 +54,55 @@
               </div>
 
               <div id="lightbox" class="hidden fixed inset-0 bg-black/80 flex items-center justify-center z-50">
+                <button id="prev-btn" class="arrow-btn left-6 rotate-180"></button>
                 <img id="lightbox-img" src="" class="max-h-[90%] max-w-[90%] rounded-lg" alt="">
+                <button id="next-btn" class="arrow-btn right-6"></button>
+                <button id="close-btn" class="close-btn top-6 right-6"></button>
               </div>
 
               <script>
-                document.addEventListener('click', e => {
-                  const t = e.target;
-                  if (t.classList.contains('gallery-thumb')) {
-                    document.getElementById('lightbox-img').src = t.dataset.full;
-                    document.getElementById('lightbox').classList.remove('hidden');
+                document.addEventListener('DOMContentLoaded', () => {
+                  const thumbs = [...document.querySelectorAll('.gallery-thumb')];
+                  const lightbox = document.getElementById('lightbox');
+                  const img = document.getElementById('lightbox-img');
+                  let current = 0;
+
+                  function show(i) {
+                    current = (i + thumbs.length) % thumbs.length;
+                    img.src = thumbs[current].dataset.full;
+                    lightbox.classList.remove('hidden');
                   }
-                  if (t.id === 'lightbox') t.classList.add('hidden');
+
+                  thumbs.forEach((t, i) => t.addEventListener('click', () => show(i)));
+
+                  document.getElementById('prev-btn').addEventListener('click', e => {
+                    e.stopPropagation();
+                    show(current - 1);
+                  });
+
+                  document.getElementById('next-btn').addEventListener('click', e => {
+                    e.stopPropagation();
+                    show(current + 1);
+                  });
+
+                  // 🔹 fecha com o botão da cruz
+                  document.getElementById('close-btn').addEventListener('click', e => {
+                    e.stopPropagation();
+                    lightbox.classList.add('hidden');
+                  });
+
+                  document.addEventListener('keydown', e => {
+                    if (lightbox.classList.contains('hidden')) return;
+                    if (e.key === 'ArrowLeft') show(current - 1);
+                    if (e.key === 'ArrowRight') show(current + 1);
+                    if (e.key === 'Escape') lightbox.classList.add('hidden');
+                  });
+
+                  lightbox.addEventListener('click', e => {
+                    if (e.target === lightbox) lightbox.classList.add('hidden');
+                  });
                 });
-              </script>
+                </script>
             <?php
             endif;
             ?>
@@ -75,9 +111,7 @@
         </div>
 
         <div class="mt-10">
-          <a href="<?php echo get_post_type_archive_link(
-            "caso_clinico",
-          ); ?>" class="text-blue-600 hover:underline">
+          <a class="simplelink" href="<?php echo get_post_type_archive_link("caso_clinico"); ?>">
             ← Voltar a casos clínicos
           </a>
         </div>

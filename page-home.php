@@ -17,7 +17,10 @@ get_header(); ?>
     </div>
 
     <div class="w-1/2">
-      <h1 class="leading-none mb-8"><?php bloginfo("name"); ?></h1>
+      <h1 class="leading-none mb-8">
+        <span class="block uppercase text-[27px] font-normal">CLÍNICA DENTÁRIA</span>
+        <span class="block uppercase">Noites Viegas</span>
+      </h1>
       <p class="text-lg text-ink/70 max-w-md">
         <?php bloginfo("description"); ?>
       </p>
@@ -48,7 +51,7 @@ get_header(); ?>
 
   <!-- Test section -->
   <section class="bg-egg-dark">
-     <div class="container flex items-center gap-10 py-16">
+     <div class="container flex items-center gap-10 pt-16 pb-28">
       <div class="w-1/2">
         <img
           src="<?php echo esc_url(

@@ -24,15 +24,89 @@
   .pagewrapper {
     @apply container mx-auto pt-4 pb-8;
   }
+
   .pagewrapper > h1 {
     @apply mb-8;
   }
 
+  .simplelink {
+    @apply text-blueLink hover:underline hover:text-blueLink-dark;
+  }
+
   .mainmenu li a {
-    @apply font-semibold;
+    @apply font-semibold hover:text-blueLink-dark;
   }
 
   .secondarymenu li a {
     @apply text-sm;
   }
+}
+
+/* Lightbox arrows and close */
+.arrow-btn {
+  position: absolute;
+  width: 6rem;
+  height: 6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ede9e5;
+  cursor: pointer;
+  user-select: none;
+  transition: color 0.2s ease;
+}
+
+.arrow-btn::before {
+  content: "";
+  display: block;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-top: 2px solid #ede9e5;
+  border-right: 2px solid #ede9e5;
+  transform: rotate(45deg);
+  transition: border-color 0.2s ease;
+}
+
+.arrow-btn:hover {
+  color: #ffffff;
+}
+
+.arrow-btn:hover::before {
+  border-color: #ffffff;
+}
+
+.close-btn {
+  position: absolute;
+  width: 2rem;
+  height: 2rem;
+  color: #ede9e5;
+  cursor: pointer;
+  user-select: none;
+  transition: color 0.2s ease;
+}
+
+.close-btn::before,
+.close-btn::after {
+  content: "";
+  position: absolute;
+  background-color: #ede9e5;
+  width: 1.25rem;
+  height: 2px;
+  top: 50%;
+  left: 50%;
+  transform-origin: center;
+  transition: background-color 0.2s ease;
+}
+
+.close-btn::before {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.close-btn::after {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.close-btn:hover::before,
+.close-btn:hover::after {
+  background-color: #ffffff;
 }
