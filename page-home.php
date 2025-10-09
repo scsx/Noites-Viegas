@@ -2,7 +2,11 @@
 /**
  * Template Name: Homepage
  */
-get_header(); ?>
+get_header();
+
+$textDiv = "w-[43%]";
+$imageDiv = "w-[57%]";
+?>
 
 
 <?php function clinica_button($text, $url)
@@ -46,16 +50,16 @@ get_header(); ?>
 <!-- Test section -->
 <section>
   <div class="container flex items-center gap-10 pt-16 pb-28">
-    <div class="w-1/2">
-      <h2 class="text-[70px] leading-none mb-8">Tratamentos</h2>
+    <div class="<?php echo $textDiv; ?>">
+      <h2 class="text-[60px] leading-none mb-8">Tratamentos</h2>
       <p class="text-lg max-w-md">
         Oferecemos uma ampla gama de tratamentos dentários, desde limpezas e branqueamentos até ortodontia, implantes, próteses e facetas estéticas. Cada serviço é realizado com tecnologia moderna e atenção ao detalhe, garantindo conforto, segurança e resultados duradouros em cada sorriso.
       </p>
       <p class="mt-12">
-        <?php echo clinica_button("Ver tratamentos", site_url("/tratamentos")); ?>
+        <?php echo clinica_button("Ver Tratamentos", site_url("/tratamentos")); ?>
       </p>
     </div>
-    <div class="w-1/2">
+    <div class="<?php echo $imageDiv; ?>">
       <img
         src="<?php echo esc_url(
           get_template_directory_uri(),
@@ -70,7 +74,7 @@ get_header(); ?>
 <!-- Test section -->
 <section class="bg-ink text-egg-dark">
   <div class="container flex items-center gap-10 py-24">
-    <div class="w-1/2">
+    <div class="<?php echo $imageDiv; ?>">
       <img
         src="<?php echo esc_url(
           get_template_directory_uri(),
@@ -79,10 +83,13 @@ get_header(); ?>
         class="w-full h-auto thickborder thickborder--ink-light"
       />
     </div>
-    <div class="w-1/2">
-      <h2 class="text-[70px] leading-none mb-8">Laboratório</h2>
+    <div class="<?php echo $textDiv; ?>">
+      <h2 class="text-[60px] leading-none mb-8">Clínica e Laboratório</h2>
       <p class="text-lg text-white max-w-md">
         Ter o nosso laboratório dentro da clínica permite criar próteses e coroas de forma mais rápida, precisa e personalizada. A comunicação direta entre dentista e técnico garante resultados estéticos e funcionais superiores — tudo num só lugar, sem esperas nem intermediários.
+      </p>
+      <p class="mt-12">
+        <?php echo clinica_button("Contactos", site_url("/contactos")); ?>
       </p>
     </div>
   </div>
@@ -91,20 +98,20 @@ get_header(); ?>
 <!-- Test section -->
 <section class="bg-egg-dark">
   <div class="container flex items-center gap-10 pt-16 pb-28">
-    <div class="w-1/2">
-      <h2 class="text-[70px] leading-none mb-8">Casos Clínicos de sucesso</h2>
+    <div class="<?php echo $textDiv; ?>">
+      <h2 class="text-[60px] leading-none mb-8">Casos Clínicos de sucesso</h2>
       <p class="text-lg max-w-md">
         Conheça alguns dos nossos casos clínicos de sucesso — transformações reais que refletem o cuidado, a experiência e a dedicação da nossa equipa. Cada sorriso recuperado é o resultado de um plano personalizado e de um compromisso com a excelência em estética e saúde oral.
       </p>
       <p class="mt-12">
-        <?php echo clinica_button("Ver casos", site_url("/casos-clinicos")); ?>
+        <?php echo clinica_button("Ver Casos", site_url("/casos-clinicos")); ?>
       </p>
     </div>
-    <div class="w-1/2">
+    <div class="<?php echo $imageDiv; ?>">
       <img
         src="<?php echo esc_url(
           get_template_directory_uri(),
-        ); ?>/images/TEMP_IMAGES/lesly-juarez-1AhGNGKuhR0-unsplash.jpg"
+        ); ?>/images/TEMP_IMAGES/before-after.jpg"
         alt="Clínica Dentária"
         class="w-full bg-white thickborder thickborder--egg-light"
       />

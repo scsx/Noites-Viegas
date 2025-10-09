@@ -20,11 +20,11 @@
       <span class="text-3xl font-bold -mt-2">NOITES VIEGAS</span>
     </a>
 
-    <nav>
+    <nav class="w-[43%]">
       <?php wp_nav_menu([
         "theme_location" => "main-menu",
         "container" => false,
-        "menu_class" => "mainmenu flex gap-[35px] text-lg [&_.current-menu-item>a]:text-blueLink",
+        "menu_class" => "mainmenu flex justify-between text-lg [&_.current-menu-item>a]:text-blueLink",
         "fallback_cb" => false,
       ]); ?>
     </nav>

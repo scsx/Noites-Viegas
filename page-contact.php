@@ -65,7 +65,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && $mostrar_form) {
             </div>
 
             <div class="flex items-center gap-x-4">
-              <button type="submit" class="relative group overflow-hidden border-2 border-blueLink text-blueLink px-8 py-1 flex items-center">
+              <button type="submit" class="relative group overflow-hidden border-2 border-blueLink text-blueLink px-8 py-1 flex items-center rounded">
                 <span class="absolute left-0 top-0 h-full w-0 bg-blueLink transition-all duration-300 group-hover:w-full"></span>
                 <span class="relative z-10 flex items-center">
                   <span class="transition-colors duration-300 group-hover:text-white">Enviar</span>
