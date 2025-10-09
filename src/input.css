@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ------------------ BASE ------------------ */
 @layer base {
   h1 {
     @apply text-[70px] font-bold;
@@ -20,6 +21,7 @@
   }
 }
 
+/* ------------------ COMPONENTS ------------------ */
 @layer components {
   .pagewrapper {
     @apply container mx-auto pt-4 pb-8;
@@ -29,18 +31,22 @@
     @apply mb-8;
   }
 
-  .width43 {
-    @apply w-[43%];
-  }
-
-  .width57 {
-    @apply w-[57%];
-  }
-
   .simplelink {
     @apply text-blueLink hover:underline hover:text-blueLink-dark;
   }
 
+  /* Menus */
+  .mainmenu li a {
+    @apply font-semibold hover:text-blueLink-dark;
+  }
+
+  .secondarymenu li a {
+    @apply text-sm;
+  }
+}
+
+/* ------------------ UTILITIES ------------------ */
+@layer utilities {
   /* Borders */
   .thickborder {
     @apply rounded-xl border-[16px] shadow-md transition;
@@ -62,17 +68,18 @@
     @apply thickborder border-ink-light;
   }
 
-  /* Menus */
-  .mainmenu li a {
-    @apply font-semibold hover:text-blueLink-dark;
+  /* Custom widths */
+  .width43 {
+    @apply w-[43%] flex-none;
   }
 
-  .secondarymenu li a {
-    @apply text-sm;
+  .width57 {
+    @apply w-[57%] flex-none;
   }
 }
 
-/* Lightbox arrows and close */
+/* ------------------ LIGHTBOX PURE CSS ------------------ */
+/* (fora de layers — não depende de Tailwind e não precisa purgar) */
 .arrow-btn {
   position: absolute;
   width: 6rem;
@@ -85,7 +92,6 @@
   user-select: none;
   transition: color 0.2s ease;
 }
-
 .arrow-btn::before {
   content: "";
   display: block;
@@ -96,15 +102,12 @@
   transform: rotate(45deg);
   transition: border-color 0.2s ease;
 }
-
 .arrow-btn:hover {
   color: #ffffff;
 }
-
 .arrow-btn:hover::before {
   border-color: #ffffff;
 }
-
 .close-btn {
   position: absolute;
   width: 2rem;
@@ -114,7 +117,6 @@
   user-select: none;
   transition: color 0.2s ease;
 }
-
 .close-btn::before,
 .close-btn::after {
   content: "";
@@ -127,15 +129,12 @@
   transform-origin: center;
   transition: background-color 0.2s ease;
 }
-
 .close-btn::before {
   transform: translate(-50%, -50%) rotate(45deg);
 }
-
 .close-btn::after {
   transform: translate(-50%, -50%) rotate(-45deg);
 }
-
 .close-btn:hover::before,
 .close-btn:hover::after {
   background-color: #ffffff;
