@@ -29,6 +29,14 @@
     @apply mb-8;
   }
 
+  .width43 {
+    @apply w-[43%];
+  }
+
+  .width57 {
+    @apply w-[57%];
+  }
+
   .simplelink {
     @apply text-blueLink hover:underline hover:text-blueLink-dark;
   }

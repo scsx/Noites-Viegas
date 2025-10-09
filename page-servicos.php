@@ -37,7 +37,7 @@ get_header(); ?>
               <h2 class="text-3xl font-semibold mb-[16px] text-blueLink">Comece o seu tratamento</h2>
             <?php endif; ?>
             <?php if (!empty($s["texto"])): ?>
-              <p class="leading-relaxed">Consulte os nossos <a class="font-semibold text-blueLink hover:text-blueLink-dark" href="<?php echo site_url(
+              <p class="leading-relaxed">Veja os nossos <a class="font-semibold text-blueLink hover:text-blueLink-dark" href="<?php echo site_url(
                 "/contactos",
               ); ?>">contactos</a> e marque uma visita.</p>
             <?php endif; ?>

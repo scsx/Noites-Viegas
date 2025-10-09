@@ -20,7 +20,7 @@
       <span class="text-3xl font-bold -mt-2">NOITES VIEGAS</span>
     </a>
 
-    <nav class="w-[43%]">
+    <nav class="width43">
       <?php wp_nav_menu([
         "theme_location" => "main-menu",
         "container" => false,

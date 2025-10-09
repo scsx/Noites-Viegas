@@ -2,35 +2,49 @@
 /**
  * Template Name: Contacts
  */
-get_header();
 
-/* CONTACT FORM */
-// --- Ler os campos personalizados ---
+// --- Definir antes do POST ---
 $mostrar_form = get_post_meta(get_the_ID(), "mostrar_form", true);
 $email_form = get_post_meta(get_the_ID(), "email_form", true);
 
 // --- Processar o formulário ---
-if ($_SERVER["REQUEST_METHOD"] === "POST" && $mostrar_form) {
-  $nome = sanitize_text_field($_POST["nome"]);
-  $email = sanitize_email($_POST["email"]);
-  $mensagem = sanitize_textarea_field($_POST["mensagem"]);
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+  if ($mostrar_form) {
+    $nome = sanitize_text_field($_POST["nome"]);
+    $email = sanitize_email($_POST["email"]);
+    $mensagem = sanitize_textarea_field($_POST["mensagem"]);
 
-  // Usa o email definido no campo; se estiver vazio, usa o admin
-  $to = $email_form ?: get_option("admin_email");
-  $subject = "Nova marcação de consulta de $nome";
-  $body = "Nome: $nome\nEmail: $email\nMensagem:\n$mensagem";
-  $headers = ["Content-Type: text/plain; charset=UTF-8"];
+    $to = $email_form ?: get_option("admin_email");
+    $subject = "Nova marcação de consulta de $nome";
+    $body = "Nome: $nome\nEmail: $email\nMensagem:\n$mensagem";
+    $headers = ["Content-Type: text/plain; charset=UTF-8"];
 
-  if (wp_mail($to, $subject, $body, $headers)) {
-    echo '<p class="text-green-600 mb-4">Pedido enviado com sucesso!</p>';
-  } else {
-    echo '<p class="text-red-600 mb-4">Ocorreu um erro ao enviar. Tenta mais tarde.</p>';
+    if (wp_mail($to, $subject, $body, $headers)) {
+      set_transient("clinica_form_success", true, 30);
+    } else {
+      set_transient("clinica_form_error", true, 30);
+    }
+
+    wp_safe_redirect(esc_url(get_permalink()));
+    exit();
   }
+}
+
+get_header();
+
+// mostrar mensagens após o header
+if (get_transient("clinica_form_success")) {
+  echo '<p class="bg-green-600 text-white mb-4 w-full max-w-[600px] p-4 rounded">Pedido de marcação enviado!</p>';
+  delete_transient("clinica_form_success");
+}
+if (get_transient("clinica_form_error")) {
+  echo '<p class="text-red-600 mb-4">Ocorreu um erro ao enviar. Tenta mais tarde.</p>';
+  delete_transient("clinica_form_error");
 }
 ?>
 
-
 <main class="pagewrapper">
+
   <?php if (have_posts()):
     while (have_posts()):
       the_post(); ?>
