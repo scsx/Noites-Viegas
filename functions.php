@@ -32,7 +32,7 @@ add_action("wp_enqueue_scripts", function () {
     "clinica-style",
     get_template_directory_uri() . "/dist/style.css",
     ["clinica-fonts"],
-    null,
+    filemtime(get_template_directory() . "/dist/style.css"), // força refresh em cada build
   );
 });
 
