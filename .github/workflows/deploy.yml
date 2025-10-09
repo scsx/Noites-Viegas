@@ -9,9 +9,15 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
+      - name: Install and build CSS
+        run: |
+          npm ci
+          npm run build
 
       - name: Deploy to DEV (InfinityFree)
         if: github.ref == 'refs/heads/dev---InfinityFree'
@@ -21,7 +27,17 @@ jobs:
           username: ${{ secrets.FTP_USERNAME_DEV }}
           password: ${{ secrets.FTP_PASSWORD_DEV }}
           protocol: ftp
-          server-dir: /htdocs/wp-content/themes/clinica-theme-dev/
+          local-dir: ./
+          server-dir: /htdocs/wp-content/themes/clinica-theme/
+          exclude: |
+            **/node_modules/**
+            **/.git**/
+            **/*.map
+            **/package*.json
+            **/postcss.config.js
+            **/tailwind.config.js
+            **/README.md
+          dangerous-clean-slate: true
 
       - name: Deploy to PROD
         if: github.ref == 'refs/heads/main'
@@ -31,4 +47,14 @@ jobs:
           username: ${{ secrets.FTP_USERNAME_PROD }}
           password: ${{ secrets.FTP_PASSWORD_PROD }}
           protocol: ftp
+          local-dir: ./
           server-dir: /htdocs/wp-content/themes/clinica-theme/
+          exclude: |
+            **/node_modules/**
+            **/.git**/
+            **/*.map
+            **/package*.json
+            **/postcss.config.js
+            **/tailwind.config.js
+            **/README.md
+          dangerous-clean-slate: true
