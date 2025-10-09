@@ -7,23 +7,22 @@
     <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
       <?php while (have_posts()):
         the_post(); ?>
-        <a href="<?php the_permalink(); ?>" class="block thickborder thickborder--egg-light bg-white">
+        <a href="<?php the_permalink(); ?>" class="block thickborder thickborder--egg-light bg-white group">
           <?php if (has_post_thumbnail()): ?>
             <div class="bg-egg-light">
               <img src="<?php the_post_thumbnail_url(
                 "medium",
-              ); ?>" alt="<?php the_title(); ?>" class="w-full aspect-square object-cover rounded-t-lg mb-4">
+              ); ?>" alt="<?php the_title(); ?>" class="w-full aspect-square object-cover rounded-t-lg">
             </div>
           <?php endif; ?>
-          
+
           <div class="p-6">
-            <h3 class="mb-4 leading-tight">
+            <h3 class="-mt-1 mb-4 leading-tight group-hover:text-blueLink">
               <?php
               $clean_title = preg_replace('/\xC2\xA0/', " ", get_the_title());
               echo esc_html(trim($clean_title));
               ?>
             </h3>
-
             <p class="text-[14px]"><?php the_excerpt(); ?></p>
           </div>
         </a>
